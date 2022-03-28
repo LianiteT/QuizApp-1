@@ -1,13 +1,13 @@
 <html>
     <body>
         <h1>Parametri no servera</h1>
-        (% for par in parametri %)
-        <h2> ((par)) </h2>
-        (% endfor %)
-        (% for img in img %)
-        <img src="((image))" width="400">
+        {% for par in parametri %}
+        <h2> {{par}} </h2>
+        {% endfor %}
+        {% for img in img %}
+        <img src="{{image}}" width="400">
         <br>
-        (% endfor %)  
-
+        {% endfor %} 
+         
     </body>
 </html>
