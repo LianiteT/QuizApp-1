@@ -4,6 +4,21 @@ from flask import render_template
 
 app = Flask(__name__)
 
+def loadAllPictures():
+  filepath = 'picDB.txt'
+  pictures=[]
+  with open(filepath) as fp:
+    line = fp.readline()
+    cnt = 1
+    while line:
+      if line:
+        fullPicInfo = line.strip().split(';')
+        pictures.append(fullPicInfo[1])
+      line = fp.readline()
+      cnt += 1
+  fp.close()
+  return pictures
+
 #Pirmā lapa, kas tiks ielādēta
 @app.route('/',methods = ['POST', 'GET'])
 def root():
@@ -16,7 +31,7 @@ def about():
 @app.route('/test',methods = ['POST','GET'])
 def test():
   parametri = ["IQ","Augstums","Kājas izmērs"]
-  images = ["https://images.theconversation.com/files/443350/original/file-20220131-15-1ndq1m6.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C3354%2C2464&q=45&auto=format&w=926&fit=clip","https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg","https://www.prestigeanimalhospital.com/sites/default/files/interesting-cat-facts.jpg","https://www.gamereactor.no/media/54/hollowknight_2005453_1200x675.jpg","https://preview.redd.it/a687rxe0zpe51.png?auto=webp&s=e3a7d98ca83272e8e47dce283d6d37538f189607"]
+  images = loadAllPictures()
   return render_template("test.html",parametri=parametri, images=images)
   
     
